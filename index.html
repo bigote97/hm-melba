@@ -10,41 +10,94 @@
     <div class="container">
         <h1>Historial Médico de Melba</h1>
         
-        <!-- Agregamos la sección de filtros -->
-        <div class="filters">
-            <div class="search-section">
-                <label for="searchInput">Búsqueda:</label>
-                <input type="text" id="searchInput" placeholder="Buscar por médico, keyword o vacuna...">
+        <div class="accordion-section expanded" id="actualDataSection">
+            <div class="accordion-header">
+                <h2>Información Actual</h2>
+                <button class="accordion-toggle">
+                    <span class="arrow">▼</span>
+                </button>
             </div>
-            
-            <div class="date-filter">
-                <label for="dateFrom">Desde:</label>
-                <input type="date" id="dateFrom">
-                <label for="dateTo">Hasta:</label>
-                <input type="date" id="dateTo">
-            </div>
-
-            <div class="filter-row">
-                <div class="keywords-filter">
-                    <label for="keywordSelect">Keywords:</label>
-                    <select id="keywordSelect">
-                        <option value="">Seleccionar keyword...</option>
-                    </select>
+            <div class="accordion-content">
+                <div class="actual-data">
+                    <div class="current-info">
+                        <div class="info-card">
+                            <div class="info-header">
+                                <h2>Información Actual</h2>
+                                <div class="last-update">Última actualización: <span id="lastUpdateDate"></span></div>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-item">
+                                    <span class="info-label">Peso actual:</span>
+                                    <span id="currentWeight" class="info-value">17 kg</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Medicamentos activos:</span>
+                                    <div id="activeMeds" class="active-medications">
+                                        <!-- Los medicamentos se llenarán dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="doctors-filter">
-                    <label for="doctorSelect">Médico:</label>
-                    <select id="doctorSelect">
-                        <option value="">Seleccionar médico...</option>
-                    </select>
-                </div>
             </div>
-
-            <button id="applyFilters">Aplicar Filtros</button>
-            <button id="clearFilters">Limpiar Filtros</button>
         </div>
+        
+        <div class="accordion-section" id="filtersSection">
+            <div class="accordion-header">
+                <h2>Filtros</h2>
+                <button class="accordion-toggle">
+                    <span class="arrow">▼</span>
+                </button>
+            </div>
+            <div class="accordion-content">
+                <div class="filters">
+                    <div class="search-section">
+                        <label for="searchInput">Búsqueda:</label>
+                        <input type="text" id="searchInput" placeholder="Buscar por médico, keyword o vacuna...">
+                    </div>
+                    
+                    <div class="date-filter">
+                        <label for="dateFrom">Desde:</label>
+                        <input type="date" id="dateFrom">
+                        <label for="dateTo">Hasta:</label>
+                        <input type="date" id="dateTo">
+                    </div>
 
-        <div id="records"></div>
+                    <div class="filter-row">
+                        <div class="keywords-filter">
+                            <label for="keywordSelect">Keywords:</label>
+                            <select id="keywordSelect">
+                                <option value="">Seleccionar keyword...</option>
+                            </select>
+                        </div>
+
+                        <div class="doctors-filter">
+                            <label for="doctorSelect">Médico:</label>
+                            <select id="doctorSelect">
+                                <option value="">Seleccionar médico...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="applyFilters">Aplicar Filtros</button>
+                    <button id="clearFilters">Limpiar Filtros</button>
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="records-container">
+            <div class="records-header">
+                <div class="sort-filter">
+                    <select id="sortSelect" class="modern-select">
+                        <option value="desc">↓ Más reciente</option>
+                        <option value="asc">↑ Más antiguo</option>
+                    </select>
+                </div>
+            </div>
+            <div id="records"></div>
+        </div>
     </div>
 
     <script>
@@ -57,6 +110,9 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 allRecords = await response.json();
+                
+                // Actualizar la información actual
+                updateCurrentInfo(allRecords);
                 
                 // Llenar los selects
                 populateFilters(allRecords);
@@ -112,7 +168,17 @@
             const recordsContainer = document.getElementById('records');
             recordsContainer.innerHTML = '';
 
-            records.forEach(record => {
+            // Ordenar registros según la selección
+            const sortOrder = document.getElementById('sortSelect').value;
+            const sortedRecords = [...records].sort((a, b) => {
+                if (sortOrder === 'asc') {
+                    return a.date.localeCompare(b.date);
+                } else {
+                    return b.date.localeCompare(a.date);
+                }
+            });
+
+            sortedRecords.forEach(record => {
                 const recordElement = document.createElement('div');
                 recordElement.classList.add('record');
 
@@ -161,6 +227,51 @@
             displayRecords(filteredRecords);
         }
 
+        function updateCurrentInfo(records) {
+            // Encontrar el último registro para el peso
+            const lastRecord = records[0]; // Asumiendo que los registros están ordenados por fecha
+            if (lastRecord && lastRecord.peso) {
+                document.getElementById('currentWeight').textContent = `${lastRecord.peso} kg`;
+                document.getElementById('lastUpdateDate').textContent = formatDate(lastRecord.date);
+            }
+
+            // Buscar medicamentos activos
+            const today = new Date();
+            const activeMedsContainer = document.getElementById('activeMeds');
+            activeMedsContainer.innerHTML = '';
+
+            records.forEach(record => {
+                if (record.medicamentos) {
+                    record.medicamentos.forEach(med => {
+                        const endDate = new Date(med.fechaFin);
+                        if (endDate > today) {
+                            const medElement = document.createElement('div');
+                            medElement.classList.add('med-item');
+                            medElement.innerHTML = `
+                                <div class="med-name">${med.nombre}</div>
+                                <div class="med-date">Hasta: ${formatDate(med.fechaFin)}</div>
+                                <div class="med-info">${med.instrucciones || ''}</div>
+                            `;
+                            activeMedsContainer.appendChild(medElement);
+                        }
+                    });
+                }
+            });
+
+            if (activeMedsContainer.children.length === 0) {
+                activeMedsContainer.innerHTML = '<div class="no-meds">Sin medicamentos activos</div>';
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
         // Event listeners
         document.getElementById('applyFilters').addEventListener('click', filterRecords);
         document.getElementById('clearFilters').addEventListener('click', () => {
@@ -176,6 +287,16 @@
         document.getElementById('dateTo').addEventListener('change', filterRecords);
         document.getElementById('keywordSelect').addEventListener('change', filterRecords);
         document.getElementById('doctorSelect').addEventListener('change', filterRecords);
+        document.getElementById('sortSelect').addEventListener('change', () => {
+            filterRecords();
+        });
+
+        document.querySelectorAll('.accordion-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const section = button.closest('.accordion-section');
+                section.classList.toggle('expanded');
+            });
+        });
 
         loadRecords();
     </script>
