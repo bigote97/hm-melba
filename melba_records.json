@@ -180,5 +180,15 @@
             "nutrici\u00f3n",
             "desparasitaci\u00f3n"
         ]
+    },
+    {
+        "date": "21/05/24",
+        "consulta": "Peso 18.300 kg",
+        "medico": null,
+        "vacuna": null,
+        "peso": "kg",
+        "keywords": [
+            "peso"
+        ]
     }
 ]

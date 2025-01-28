@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Médico de Melba</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="module" src="./firebase-config.js"></script>
+    <script type="module" src="./firebase-service.js"></script>
 </head>
 <body>
     <div class="container">
@@ -22,7 +24,6 @@
                     <div class="current-info">
                         <div class="info-card">
                             <div class="info-header">
-                                <h2>Información Actual</h2>
                                 <div class="last-update">Última actualización: <span id="lastUpdateDate"></span></div>
                             </div>
                             <div class="info-content">
@@ -89,6 +90,7 @@
         
         <div id="records-container">
             <div class="records-header">
+                <button id="addRecordBtn" class="add-record-btn">+ Nuevo Registro</button>
                 <div class="sort-filter">
                     <select id="sortSelect" class="modern-select">
                         <option value="desc">↓ Más reciente</option>
@@ -98,207 +100,69 @@
             </div>
             <div id="records"></div>
         </div>
+
+        <!-- Popup para nuevo registro -->
+        <div id="addRecordPopup" class="popup">
+            <div class="popup-content">
+                <h2>Nuevo Registro Médico</h2>
+                <form id="newRecordForm">
+                    <div class="form-group">
+                        <label for="recordDate">Fecha:</label>
+                        <input type="date" 
+                               id="recordDate" 
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recordConsulta">Consulta:</label>
+                        <textarea id="recordConsulta" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recordMedico">Médico:</label>
+                        <input type="text" id="recordMedico">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recordVacuna">Vacuna:</label>
+                        <input type="text" id="recordVacuna">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recordPeso">Peso (kg):</label>
+                        <input type="number" id="recordPeso" step="0.001">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recordKeywords">Keywords (separadas por coma):</label>
+                        <input type="text" id="recordKeywords">
+                    </div>
+
+                    <div class="popup-buttons">
+                        <button type="submit" class="submit-btn">Guardar</button>
+                        <button type="button" class="cancel-btn" id="closePopup">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <script>
-        let allRecords = []; // Variable para almacenar todos los registros
+    <!-- Notificación de error -->
+    <div id="errorNotification" class="notification error-notification">
+        <div class="notification-content">
+            <div class="notification-icon">⚠️</div>
+            <div class="notification-message"></div>
+        </div>
+        <button class="notification-close">×</button>
+    </div>
 
-        async function loadRecords() {
-            try {
-                const response = await fetch('./melba_records.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                allRecords = await response.json();
-                
-                // Actualizar la información actual
-                updateCurrentInfo(allRecords);
-                
-                // Llenar los selects
-                populateFilters(allRecords);
-                
-                // Mostrar los registros
-                displayRecords(allRecords);
-            } catch (error) {
-                console.error('Error cargando los registros:', error);
-                document.getElementById('records').innerHTML = `
-                    <div class="error">
-                        Error al cargar los registros médicos. 
-                        Por favor, asegúrate de que el archivo JSON existe y el servidor está funcionando.
-                    </div>
-                `;
-            }
-        }
-
-        function populateFilters(records) {
-            // Populate keywords
-            const keywordSet = new Set();
-            records.forEach(record => {
-                record.keywords.forEach(keyword => keywordSet.add(keyword));
-            });
-            
-            const keywordSelect = document.getElementById('keywordSelect');
-            keywordSelect.innerHTML = '<option value="">Seleccionar keyword...</option>';
-            [...keywordSet].sort().forEach(keyword => {
-                const option = document.createElement('option');
-                option.value = keyword;
-                option.textContent = keyword;
-                keywordSelect.appendChild(option);
-            });
-
-            // Populate doctors
-            const doctorSet = new Set();
-            records.forEach(record => {
-                if (record.medico) {
-                    doctorSet.add(record.medico);
-                }
-            });
-            
-            const doctorSelect = document.getElementById('doctorSelect');
-            doctorSelect.innerHTML = '<option value="">Seleccionar médico...</option>';
-            [...doctorSet].sort().forEach(doctor => {
-                const option = document.createElement('option');
-                option.value = doctor;
-                option.textContent = doctor;
-                doctorSelect.appendChild(option);
-            });
-        }
-
-        function displayRecords(records) {
-            const recordsContainer = document.getElementById('records');
-            recordsContainer.innerHTML = '';
-
-            // Ordenar registros según la selección
-            const sortOrder = document.getElementById('sortSelect').value;
-            const sortedRecords = [...records].sort((a, b) => {
-                if (sortOrder === 'asc') {
-                    return a.date.localeCompare(b.date);
-                } else {
-                    return b.date.localeCompare(a.date);
-                }
-            });
-
-            sortedRecords.forEach(record => {
-                const recordElement = document.createElement('div');
-                recordElement.classList.add('record');
-
-                recordElement.innerHTML = `
-                    <h2>${record.date}</h2>
-                    <p><strong>Consulta:</strong> ${record.consulta || "No registrada"}</p>
-                    <p><strong>Médico:</strong> ${record.medico || "No especificado"}</p>
-                    <p><strong>Vacuna:</strong> ${record.vacuna || "No aplicada"}</p>
-                    <p><strong>Peso:</strong> ${record.peso || "No registrado"}</p>
-                    <p><strong>Keywords:</strong> ${record.keywords.join(", ")}</p>
-                `;
-
-                recordsContainer.appendChild(recordElement);
-            });
-        }
-
-        function filterRecords() {
-            const searchText = document.getElementById('searchInput').value.toLowerCase();
-            const dateFrom = document.getElementById('dateFrom').value;
-            const dateTo = document.getElementById('dateTo').value;
-            const selectedKeyword = document.getElementById('keywordSelect').value;
-            const selectedDoctor = document.getElementById('doctorSelect').value;
-
-            let filteredRecords = allRecords.filter(record => {
-                // Filtro de búsqueda
-                const searchMatch = !searchText || 
-                    record.medico?.toLowerCase().includes(searchText) ||
-                    record.vacuna?.toLowerCase().includes(searchText) ||
-                    record.keywords.some(k => k.toLowerCase().includes(searchText));
-
-                // Filtro de fecha
-                const dateMatch = (!dateFrom || record.date >= dateFrom) && 
-                                (!dateTo || record.date <= dateTo);
-
-                // Filtro de keyword
-                const keywordMatch = !selectedKeyword || 
-                    record.keywords.includes(selectedKeyword);
-
-                // Filtro de médico
-                const doctorMatch = !selectedDoctor || 
-                    record.medico === selectedDoctor;
-
-                return searchMatch && dateMatch && keywordMatch && doctorMatch;
-            });
-
-            displayRecords(filteredRecords);
-        }
-
-        function updateCurrentInfo(records) {
-            // Encontrar el último registro para el peso
-            const lastRecord = records[0]; // Asumiendo que los registros están ordenados por fecha
-            if (lastRecord && lastRecord.peso) {
-                document.getElementById('currentWeight').textContent = `${lastRecord.peso} kg`;
-                document.getElementById('lastUpdateDate').textContent = formatDate(lastRecord.date);
-            }
-
-            // Buscar medicamentos activos
-            const today = new Date();
-            const activeMedsContainer = document.getElementById('activeMeds');
-            activeMedsContainer.innerHTML = '';
-
-            records.forEach(record => {
-                if (record.medicamentos) {
-                    record.medicamentos.forEach(med => {
-                        const endDate = new Date(med.fechaFin);
-                        if (endDate > today) {
-                            const medElement = document.createElement('div');
-                            medElement.classList.add('med-item');
-                            medElement.innerHTML = `
-                                <div class="med-name">${med.nombre}</div>
-                                <div class="med-date">Hasta: ${formatDate(med.fechaFin)}</div>
-                                <div class="med-info">${med.instrucciones || ''}</div>
-                            `;
-                            activeMedsContainer.appendChild(medElement);
-                        }
-                    });
-                }
-            });
-
-            if (activeMedsContainer.children.length === 0) {
-                activeMedsContainer.innerHTML = '<div class="no-meds">Sin medicamentos activos</div>';
-            }
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
-        }
-
-        // Event listeners
-        document.getElementById('applyFilters').addEventListener('click', filterRecords);
-        document.getElementById('clearFilters').addEventListener('click', () => {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('dateFrom').value = '';
-            document.getElementById('dateTo').value = '';
-            document.getElementById('keywordSelect').value = '';
-            document.getElementById('doctorSelect').value = '';
-            displayRecords(allRecords);
+    <script type="module">
+        import { App } from './app.js';
+        
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
         });
-        document.getElementById('searchInput').addEventListener('input', filterRecords);
-        document.getElementById('dateFrom').addEventListener('change', filterRecords);
-        document.getElementById('dateTo').addEventListener('change', filterRecords);
-        document.getElementById('keywordSelect').addEventListener('change', filterRecords);
-        document.getElementById('doctorSelect').addEventListener('change', filterRecords);
-        document.getElementById('sortSelect').addEventListener('change', () => {
-            filterRecords();
-        });
-
-        document.querySelectorAll('.accordion-toggle').forEach(button => {
-            button.addEventListener('click', () => {
-                const section = button.closest('.accordion-section');
-                section.classList.toggle('expanded');
-            });
-        });
-
-        loadRecords();
     </script>
 </body>
 </html>
