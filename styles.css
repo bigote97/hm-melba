@@ -1,0 +1,254 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos para la sección de filtros */
+.filters {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el buscador */
+.search-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* Estilos para el filtro de fecha */
+.date-filter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.date-filter label {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.date-filter input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Estilos para el select de keywords */
+.keywords-filter {
+    margin-bottom: 15px;
+}
+
+#keywordSelect {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #444;
+    height: 35px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 1em;
+    padding-right: 30px;
+}
+
+#keywordSelect:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+#keywordSelect option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* Estilos para los botones */
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+#applyFilters {
+    background-color: #007bff;
+    color: white;
+}
+
+#applyFilters:hover {
+    background-color: #0056b3;
+}
+
+#clearFilters {
+    background-color: #6c757d;
+    color: white;
+}
+
+#clearFilters:hover {
+    background-color: #545b62;
+}
+
+/* Estilos para los registros */
+.record {
+    background-color: #f8f9ff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.record h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.record p {
+    margin: 8px 0;
+    color: #444;
+}
+
+.record strong {
+    color: #333;
+}
+
+/* Estilos para mensajes de error */
+.error {
+    background-color: #fff3f3;
+    color: #dc3545;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .date-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .date-filter input[type="date"] {
+        width: 100%;
+    }
+    
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Agregar después de los estilos existentes de filters */
+.filter-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.keywords-filter,
+.doctors-filter {
+    flex: 1;
+}
+
+#keywordSelect,
+#doctorSelect {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #444;
+    height: 35px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 1em;
+    padding-right: 30px;
+}
+
+#keywordSelect:focus,
+#doctorSelect:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Actualizar el responsive design */
+@media (max-width: 600px) {
+    .filter-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Estilos para labels */
+.filters label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Ajustar el margen del input de búsqueda */
+.search-section {
+    margin-bottom: 15px;
+}
+
+/* Ajustar el estilo específico de los labels de fecha que están en línea */
+.date-filter label {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+/* Ajustar el espacio entre los elementos de filtro */
+.keywords-filter,
+.doctors-filter {
+    flex: 1;
+}
+
+.keywords-filter select,
+.doctors-filter select {
+    margin-top: 5px;
+}

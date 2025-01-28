@@ -1,0 +1,184 @@
+[
+    {
+        "date": "02/01/23",
+        "consulta": "Control en CIVET. No presenta m\u00e1s Anaplasma. Puede vacunarse y castrarse.",
+        "medico": "CIVET",
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "control",
+            "anaplasma",
+            "vacunaci\u00f3n",
+            "castraci\u00f3n"
+        ]
+    },
+    {
+        "date": "24/01/23",
+        "consulta": "Sangr\u00f3, se cree posible celo.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "sangrado",
+            "celo"
+        ]
+    },
+    {
+        "date": "25/01/23",
+        "consulta": "Refuerzo de vacunas. Pr\u00f3xima dosis de Moxidec Plus en mayo.",
+        "medico": null,
+        "vacuna": "Refuerzo de vacunas",
+        "peso": "20.900 kg",
+        "keywords": [
+            "vacuna",
+            "control"
+        ]
+    },
+    {
+        "date": "03/02/23",
+        "consulta": "Sigue en celo, sigue sangrando.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "celo",
+            "sangrado"
+        ]
+    },
+    {
+        "date": "10/02/23",
+        "consulta": "Braletta de 20 kg.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "20 kg",
+        "keywords": [
+            "control"
+        ]
+    },
+    {
+        "date": "02/03/23",
+        "consulta": "Ohm: dos comprimidos por d\u00eda.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "medicaci\u00f3n"
+        ]
+    },
+    {
+        "date": "06/03/23",
+        "consulta": "Se empieza a usar difusor Serenex.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "medicaci\u00f3n",
+            "serenex"
+        ]
+    },
+    {
+        "date": "14/03/23",
+        "consulta": "Empieza a usar el arn\u00e9s.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "arn\u00e9s"
+        ]
+    },
+    {
+        "date": "27/03/23",
+        "consulta": "Regres\u00f3 de la guarder\u00eda muy cansada. Se le puso inyectable y pastillas por 5 d\u00edas.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "18.750 kg",
+        "keywords": [
+            "cansancio",
+            "inyectable",
+            "medicaci\u00f3n"
+        ]
+    },
+    {
+        "date": "03/04/23",
+        "consulta": "Se encontr\u00f3 algo en la vejiga, pero no saben qu\u00e9 es. Se pidi\u00f3 copro y orina.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "18.200 kg",
+        "keywords": [
+            "vejiga",
+            "copro",
+            "orina",
+            "diagn\u00f3stico"
+        ]
+    },
+    {
+        "date": "05/04/23",
+        "consulta": "Copro y orina negativos, pero a\u00fan no saben qu\u00e9 tiene.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "18.500 kg",
+        "keywords": [
+            "copro",
+            "orina",
+            "diagn\u00f3stico"
+        ]
+    },
+    {
+        "date": "18/04/23",
+        "consulta": "Vomita 4 veces. Ruidos intestinales, gases, diarrea. Recibi\u00f3 suero.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "v\u00f3mito",
+            "diarrea",
+            "gases",
+            "suero"
+        ]
+    },
+    {
+        "date": "24/04/23",
+        "consulta": "Sigue con v\u00f3mitos. Est\u00e1 en dieta de carne de vaca y sopa de zanahoria. Medicaci\u00f3n para problemas gastrointestinales.",
+        "medico": null,
+        "vacuna": null,
+        "peso": null,
+        "keywords": [
+            "v\u00f3mito",
+            "dieta",
+            "gastrointestinal"
+        ]
+    },
+    {
+        "date": "26/04/23",
+        "consulta": "Se ajusta la dieta para subir de peso, con carne, huevo y queso.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "16.7 kg",
+        "keywords": [
+            "nutrici\u00f3n",
+            "dieta"
+        ]
+    },
+    {
+        "date": "29/04/23",
+        "consulta": "Mejor\u00f3 la caca, se suma arroz y aceite.",
+        "medico": null,
+        "vacuna": null,
+        "peso": "17 kg",
+        "keywords": [
+            "nutrici\u00f3n",
+            "dieta"
+        ]
+    },
+    {
+        "date": "08/05/23",
+        "consulta": "Se incorpora alimento balanceado. Desparasitaci\u00f3n con Fentel Max 100 mg.",
+        "medico": null,
+        "vacuna": "Desparasitaci\u00f3n",
+        "peso": "17 kg",
+        "keywords": [
+            "nutrici\u00f3n",
+            "desparasitaci\u00f3n"
+        ]
+    }
+]
