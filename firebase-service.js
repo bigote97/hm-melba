@@ -11,22 +11,44 @@ import {
     setDoc,
     deleteDoc
 } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { db } from './firebase-config.js';
-import { auth } from './firebase-config.js';
 
 const RECORDS_COLLECTION = "melba-records";
 const CURRENT_DATA_DOC = "last";
 
-export const FirebaseService = {
-    // Guardar un nuevo registro
-    async saveRecord(record) {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+export class FirebaseService {
+    static app;
+    static db;
+
+    static async initialize() {
         try {
-            const docRef = await addDoc(collection(db, RECORDS_COLLECTION), record);
+            if (!window.env) {
+                console.error('window.env no está definido');
+                throw new Error('Variables de entorno no encontradas');
+            }
+
+            if (!this.app) {
+                const config = {
+                    apiKey: window.env.FIREBASE_API_KEY,
+                    authDomain: window.env.FIREBASE_AUTH_DOMAIN,
+                    projectId: window.env.FIREBASE_PROJECT_ID,
+                    storageBucket: window.env.FIREBASE_STORAGE_BUCKET,
+                    messagingSenderId: window.env.FIREBASE_MESSAGING_SENDER_ID,
+                    appId: window.env.FIREBASE_APP_ID
+                };
+
+                this.app = initializeApp(config);
+                this.db = getFirestore(this.app);
+            }
+        } catch (error) {
+            console.error('Error al inicializar Firebase:', error);
+            throw error;
+        }
+    }
+
+    static async saveRecord(record) {
+        try {
+            const docRef = await addDoc(collection(this.db, RECORDS_COLLECTION), record);
             
-            // Si el registro tiene peso, actualizar los datos actuales
             if (record.peso) {
                 await this.updateCurrentData({
                     peso: record.peso,
@@ -39,57 +61,49 @@ export const FirebaseService = {
             console.error("Error al guardar el registro:", error);
             throw error;
         }
-    },
+    }
 
-    // Obtener todos los registros ordenados por fecha
-    async getAllRecords() {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+    static async getAllRecords() {
         try {
             const q = query(
-                collection(db, RECORDS_COLLECTION), 
+                collection(this.db, RECORDS_COLLECTION), 
                 orderBy("date", "desc")
             );
+            
             const querySnapshot = await getDocs(q);
-            return querySnapshot.docs.map(doc => ({
+            
+            const records = querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
+            
+            return records;
+            
         } catch (error) {
             console.error("Error al obtener los registros:", error);
             throw error;
         }
-    },
+    }
 
-    // Obtener datos actuales
-    async getCurrentData() {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+    static async getCurrentData() {
         try {
-            const docRef = doc(db, 'current-data', CURRENT_DATA_DOC);
+            const docRef = doc(this.db, 'current-data', CURRENT_DATA_DOC);
             const docSnap = await getDoc(docRef);
             
             if (docSnap.exists()) {
                 return docSnap.data();
             } else {
-                console.log("No se encontraron datos actuales");
                 return null;
             }
         } catch (error) {
             console.error("Error al obtener los datos actuales:", error);
             throw error;
         }
-    },
+    }
 
-    // Actualizar datos actuales
-    async updateCurrentData(data) {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+    static async updateCurrentData(data) {
         try {
-            const docRef = doc(db, 'current-data', CURRENT_DATA_DOC);
+            const docRef = doc(this.db, 'current-data', CURRENT_DATA_DOC);
             const currentData = await this.getCurrentData() || {};
             
             await setDoc(docRef, {
@@ -101,29 +115,21 @@ export const FirebaseService = {
             console.error("Error al actualizar los datos actuales:", error);
             throw error;
         }
-    },
+    }
 
-    // Eliminar un registro
-    async deleteRecord(record) {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+    static async deleteRecord(record) {
         try {
-            const recordRef = doc(db, RECORDS_COLLECTION, record.id);
+            const recordRef = doc(this.db, RECORDS_COLLECTION, record.id);
             await deleteDoc(recordRef);
         } catch (error) {
             console.error("Error al eliminar el registro:", error);
             throw error;
         }
-    },
+    }
 
-    // Actualizar un registro existente
-    async updateRecord(record) {
-        if (!auth.currentUser) {
-            throw new Error('Usuario no autenticado');
-        }
+    static async updateRecord(record) {
         try {
-            const recordRef = doc(db, RECORDS_COLLECTION, record.id);
+            const recordRef = doc(this.db, RECORDS_COLLECTION, record.id);
             await setDoc(recordRef, {
                 date: record.date,
                 consulta: record.consulta,
@@ -133,7 +139,6 @@ export const FirebaseService = {
                 keywords: record.keywords
             }, { merge: true });
 
-            // Si el registro tiene peso, actualizar los datos actuales
             if (record.peso) {
                 await this.updateCurrentData({
                     peso: record.peso,
@@ -145,4 +150,4 @@ export const FirebaseService = {
             throw error;
         }
     }
-}; 
+} 

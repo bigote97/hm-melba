@@ -1,31 +1,50 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #059669;
+  --danger-color: #dc2626;
+  --background-color: #f1f5f9;
+  --card-background: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
+    max-width: 1024px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
 }
 
 h1 {
-    color: #333;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
 }
 
 /* Estilos para la sección de filtros */
 .filters {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
     box-sizing: border-box;
 }
@@ -130,11 +149,18 @@ button {
 
 /* Estilos para los registros */
 .record {
-    background-color: #f8f9ff;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.record:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
 }
 
 .record h2 {
@@ -317,10 +343,11 @@ button {
 }
 
 .info-card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .info-header {
@@ -374,20 +401,20 @@ button {
 }
 
 .med-item {
-    background-color: #f8f9ff;
-    border-left: 3px solid #007bff;
-    padding: 10px;
-    border-radius: 4px;
+    background-color: var(--background-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
 }
 
 .med-name {
-    font-weight: bold;
-    color: #333;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .med-date {
-    font-size: 0.9em;
-    color: #666;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
 }
 
 /* Ajuste responsive */
@@ -401,7 +428,8 @@ button {
     }
 
     .container {
-        padding: 10px;
+        padding: 1rem;
+        margin: 1rem auto;
     }
 
     .accordion-section {
@@ -434,31 +462,25 @@ button {
 
 /* Estilos para el acordeón */
 .accordion-section {
-    background: #fff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: visible;
-    width: 100%;
-    box-sizing: border-box;
+    background: var(--card-background);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
 .accordion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #fff;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-    position: relative;
+    padding: 1.25rem;
+    background: var(--card-background);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .accordion-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
     margin: 0;
-    font-size: 1.2em;
-    color: #333;
-    padding-right: 40px;
 }
 
 .accordion-toggle {
@@ -528,7 +550,7 @@ button {
     }
 
     .accordion-header {
-        padding: 12px 20px;
+        padding: 1rem;
     }
 
     .accordion-toggle {
@@ -610,12 +632,13 @@ input, select, button {
 }
 
 .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -694,10 +717,11 @@ input, select, button {
     position: fixed;
     top: 20px;
     right: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--card-background);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
     z-index: 2000;
     max-width: 400px;
     transform: translateX(150%);
@@ -808,14 +832,6 @@ input, select, button {
     z-index: 1000;
 }
 
-.popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 90%;
-}
-
 .popup-buttons {
     display: flex;
     justify-content: flex-end;
@@ -910,4 +926,160 @@ input, select, button {
 .date-input::placeholder {
     color: #999;
     font-size: 0.9em;
+}
+
+/* Botones modernizados */
+.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.button-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.button-secondary {
+    background-color: white;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.button-secondary:hover {
+    background-color: var(--background-color);
+}
+
+/* Inputs y selects modernizados */
+.input-modern {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: white;
+    color: var(--text-primary);
+    transition: all 0.2s;
+}
+
+.input-modern:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Cards de registros modernizadas */
+.record {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.record:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+/* Notificaciones modernas */
+.notification {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Popup moderno */
+.popup-content {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+/* Filtros modernizados */
+.filters {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+/* Información actual modernizada */
+.info-card {
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+/* Botones de acción */
+.action-button {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.action-button.edit {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.action-button.delete {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Medicamentos activos */
+.med-item {
+    background-color: var(--background-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.med-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.med-date {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .accordion-header {
+        padding: 1rem;
+    }
+
+    .filters {
+        padding: 1rem;
+    }
+
+    .record {
+        padding: 1rem;
+    }
 }

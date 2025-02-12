@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial Médico de Melba</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="./firebase-config.js"></script>
-    <script type="module" src="./firebase-service.js"></script>
+    <!-- Agregar fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Agregar íconos modernos -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -14,9 +16,9 @@
         
         <div class="accordion-section expanded" id="actualDataSection">
             <div class="accordion-header">
-                <h2>Información Actual</h2>
+                <h2><i class="ri-heart-pulse-line"></i> Información Actual</h2>
                 <button class="accordion-toggle">
-                    <span class="arrow">▼</span>
+                    <i class="ri-arrow-down-s-line"></i>
                 </button>
             </div>
             <div class="accordion-content">
@@ -46,9 +48,9 @@
         
         <div class="accordion-section" id="filtersSection">
             <div class="accordion-header">
-                <h2>Filtros</h2>
+                <h2><i class="ri-filter-3-line"></i> Filtros</h2>
                 <button class="accordion-toggle">
-                    <span class="arrow">▼</span>
+                    <i class="ri-arrow-down-s-line"></i>
                 </button>
             </div>
             <div class="accordion-content">
@@ -90,9 +92,11 @@
         
         <div id="records-container">
             <div class="records-header">
-                <button id="addRecordBtn" class="add-record-btn">+ Nuevo Registro</button>
+                <button id="addRecordBtn" class="button-primary">
+                    <i class="ri-add-line"></i> Nuevo Registro
+                </button>
                 <div class="sort-filter">
-                    <select id="sortSelect" class="modern-select">
+                    <select id="sortSelect" class="input-modern">
                         <option value="desc">↓ Más reciente</option>
                         <option value="asc">↑ Más antiguo</option>
                     </select>
@@ -104,7 +108,7 @@
         <!-- Popup para nuevo registro -->
         <div id="addRecordPopup" class="popup">
             <div class="popup-content">
-                <h2>Nuevo Registro Médico</h2>
+                <h2><i class="ri-file-add-line"></i> Nuevo Registro Médico</h2>
                 <form id="newRecordForm">
                     <div class="form-group">
                         <label for="recordDate">Fecha:</label>
@@ -139,8 +143,12 @@
                     </div>
 
                     <div class="popup-buttons">
-                        <button type="submit" class="submit-btn">Guardar</button>
-                        <button type="button" class="cancel-btn" id="closePopup">Cancelar</button>
+                        <button type="submit" class="button-primary">
+                            <i class="ri-save-line"></i> Guardar
+                        </button>
+                        <button type="button" class="button-secondary" id="closePopup">
+                            <i class="ri-close-line"></i> Cancelar
+                        </button>
                     </div>
                 </form>
             </div>
@@ -150,19 +158,16 @@
     <!-- Notificación de error -->
     <div id="errorNotification" class="notification error-notification">
         <div class="notification-content">
-            <div class="notification-icon">⚠️</div>
+            <i class="ri-error-warning-line"></i>
             <div class="notification-message"></div>
         </div>
-        <button class="notification-close">×</button>
+        <button class="notification-close">
+            <i class="ri-close-line"></i>
+        </button>
     </div>
 
-    <script type="module">
-        import { App } from './app.js';
-        
-        // Inicializar la aplicación cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', () => {
-            App.init();
-        });
-    </script>
+    <!-- Scripts al final del body en este orden específico -->
+    <script src="env.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

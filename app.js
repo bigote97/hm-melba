@@ -4,21 +4,37 @@ let allRecords = [];
 
 export class App {
     static async init() {
-        this.initializeEventListeners();
-        await this.loadRecords();
+        try {
+            await FirebaseService.initialize();
+            
+            const records = await FirebaseService.getAllRecords();
+            
+            this.initializeEventListeners();
+            await this.loadRecords();
+        } catch (error) {
+            let errorMessage = 'Error al inicializar la aplicación.';
+            
+            if (error.code?.startsWith('auth/')) {
+                errorMessage = 'Error de autenticación. Por favor, recarga la página.';
+            }
+            
+            document.getElementById('records').innerHTML = `
+                <div class="error">
+                    ${errorMessage}
+                </div>
+            `;
+            this.showNotification(errorMessage);
+        }
     }
 
     static async loadRecords() {
         try {
-            // Cargar los registros desde Firebase
             allRecords = await FirebaseService.getAllRecords();
             
-            // Cargar los datos actuales
             const currentData = await FirebaseService.getCurrentData();
             if (currentData) {
                 this.updateCurrentInfo(currentData);
             } else {
-                // Si no hay datos actuales, usar el último registro
                 const lastRecord = allRecords[0];
                 if (lastRecord) {
                     this.updateCurrentInfo({
@@ -29,25 +45,25 @@ export class App {
                 }
             }
             
-            // Llenar los selects
             this.populateFilters(allRecords);
-            
-            // Mostrar los registros
             this.displayRecords(allRecords);
         } catch (error) {
-            console.error('Error cargando los datos:', error);
+            let errorMessage = 'Error al cargar los datos. Por favor, verifica tu conexión a internet.';
+            
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/not-authorized') {
+                errorMessage = 'Error de autenticación. Por favor, inicia sesión nuevamente.';
+            }
+            
             document.getElementById('records').innerHTML = `
                 <div class="error">
-                    Error al cargar los datos. 
-                    Por favor, verifica tu conexión a internet.
+                    ${errorMessage}
                 </div>
             `;
-            this.showNotification('Error al cargar los registros. Por favor, verifica tu conexión e intenta nuevamente.');
+            this.showNotification(errorMessage);
         }
     }
 
     static initializeEventListeners() {
-        // Filtros
         document.getElementById('applyFilters').addEventListener('click', () => this.filterRecords());
         document.getElementById('clearFilters').addEventListener('click', () => this.clearFilters());
         document.getElementById('searchInput').addEventListener('input', () => this.filterRecords());
@@ -57,7 +73,6 @@ export class App {
         document.getElementById('doctorSelect').addEventListener('change', () => this.filterRecords());
         document.getElementById('sortSelect').addEventListener('change', () => this.filterRecords());
 
-        // Acordeón
         document.querySelectorAll('.accordion-toggle').forEach(button => {
             button.addEventListener('click', () => {
                 const section = button.closest('.accordion-section');
@@ -65,17 +80,14 @@ export class App {
             });
         });
 
-        // Popup
         const addRecordPopup = document.getElementById('addRecordPopup');
         document.getElementById('addRecordBtn').addEventListener('click', () => {
             addRecordPopup.style.display = 'flex';
-            // Establecer la fecha actual
             const today = new Date();
-            const dateStr = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD para el input
+            const dateStr = today.toISOString().split('T')[0];
             document.getElementById('recordDate').value = dateStr;
         });
 
-        // Convertir el formato de fecha al cambiar
         document.getElementById('recordDate').addEventListener('change', (e) => {
             const date = new Date(e.target.value);
             const day = String(date.getDate()).padStart(2, '0');
@@ -109,14 +121,12 @@ export class App {
             this.handleNewRecord(e);
         });
         
-        // Notificación
         document.querySelector('.notification-close').addEventListener('click', () => {
             document.getElementById('errorNotification').classList.remove('show');
         });
     }
 
     static populateFilters(records) {
-        // Populate keywords
         const keywordSet = new Set();
         records.forEach(record => {
             if (record.keywords) {
@@ -133,7 +143,6 @@ export class App {
             keywordSelect.appendChild(option);
         });
 
-        // Populate doctors
         const doctorSet = new Set();
         records.forEach(record => {
             if (record.medico) {
@@ -152,13 +161,11 @@ export class App {
     }
 
     static updateCurrentInfo(lastData) {
-        // Actualizar el peso
         if (lastData.peso) {
             document.getElementById('currentWeight').textContent = lastData.peso;
             document.getElementById('lastUpdateDate').textContent = this.formatDate(lastData.date);
         }
 
-        // Actualizar medicamentos activos
         const today = new Date();
         const activeMedsContainer = document.getElementById('activeMeds');
         activeMedsContainer.innerHTML = '';
@@ -192,21 +199,17 @@ export class App {
         const selectedDoctor = document.getElementById('doctorSelect').value;
 
         let filteredRecords = allRecords.filter(record => {
-            // Filtro de búsqueda
             const searchMatch = !searchText || 
                 record.medico?.toLowerCase().includes(searchText) ||
                 record.vacuna?.toLowerCase().includes(searchText) ||
                 record.keywords?.some(k => k.toLowerCase().includes(searchText));
 
-            // Filtro de fecha
             const dateMatch = (!dateFrom || record.date >= dateFrom) && 
                             (!dateTo || record.date <= dateTo);
 
-            // Filtro de keyword
             const keywordMatch = !selectedKeyword || 
                 record.keywords?.includes(selectedKeyword);
 
-            // Filtro de médico
             const doctorMatch = !selectedDoctor || 
                 record.medico === selectedDoctor;
 
@@ -220,10 +223,8 @@ export class App {
         const recordsContainer = document.getElementById('records');
         recordsContainer.innerHTML = '';
 
-        // Ordenar registros según la selección
         const sortOrder = document.getElementById('sortSelect').value;
         const sortedRecords = [...records].sort((a, b) => {
-            // Convertir las fechas a objetos Date para comparación
             const dateA = this.parseDate(a.date);
             const dateB = this.parseDate(b.date);
             
@@ -292,7 +293,6 @@ export class App {
                     });
                 }
 
-                // Agregar event listeners para los botones
                 const editBtn = recordElement.querySelector('.edit-btn');
                 const deleteBtn = recordElement.querySelector('.delete-btn');
 
@@ -331,7 +331,6 @@ export class App {
 
         document.body.appendChild(popup);
 
-        // Event listeners para los botones
         popup.querySelector('.cancel-btn').addEventListener('click', () => {
             document.body.removeChild(popup);
         });
@@ -343,12 +342,10 @@ export class App {
                 document.body.removeChild(popup);
                 this.showNotification('Registro eliminado exitosamente');
             } catch (error) {
-                console.error('Error:', error);
                 this.showNotification('Error al eliminar el registro');
             }
         });
 
-        // Cerrar al hacer clic fuera del popup
         popup.addEventListener('click', (e) => {
             if (e.target === popup) {
                 document.body.removeChild(popup);
@@ -366,7 +363,6 @@ export class App {
     }
 
     static formatDate(dateString) {
-        // La fecha siempre debe estar en formato dd/mm/yy
         return dateString;
     }
 
@@ -397,18 +393,13 @@ export class App {
 
         try {
             await FirebaseService.saveRecord(newRecord);
-            // Recargar todos los registros
             allRecords = await FirebaseService.getAllRecords();
-            // Actualizar los filtros con los nuevos datos
             this.populateFilters(allRecords);
-            // Mostrar los registros actualizados
             this.displayRecords(allRecords);
-            // Cerrar el popup y limpiar el formulario
             document.getElementById('addRecordPopup').style.display = 'none';
             document.getElementById('newRecordForm').reset();
             this.showNotification('Registro guardado exitosamente');
         } catch (error) {
-            console.error('Error:', error);
             this.showNotification('Error al guardar el registro. Por favor, verifica tu conexión e intenta nuevamente.');
         }
     }
@@ -416,7 +407,6 @@ export class App {
     static async handleSaveEdit(recordElement, originalRecord) {
         try {
             const dateInput = recordElement.querySelector('.date-input').value;
-            // Validar formato de fecha
             if (!this.isValidDateFormat(dateInput)) {
                 this.showNotification('Formato de fecha inválido. Use dd/mm/aa');
                 return;
@@ -440,7 +430,6 @@ export class App {
             await this.loadRecords();
             this.showNotification('Registro actualizado exitosamente');
         } catch (error) {
-            console.error('Error:', error);
             this.showNotification('Error al actualizar el registro');
         }
     }
@@ -457,28 +446,27 @@ export class App {
         }, 5000);
     }
 
-    // Nuevo método para validar el formato de fecha
     static isValidDateFormat(dateString) {
-        // Verificar el formato dd/mm/yy
         const regex = /^(\d{2})\/(\d{2})\/(\d{2})$/;
         if (!regex.test(dateString)) return false;
 
         const [, day, month, year] = dateString.match(regex);
         
-        // Convertir a números
         const numDay = parseInt(day, 10);
         const numMonth = parseInt(month, 10);
         const numYear = parseInt(year, 10);
 
-        // Validar rangos
         if (numMonth < 1 || numMonth > 12) return false;
         if (numDay < 1 || numDay > 31) return false;
         if (numYear < 0 || numYear > 99) return false;
 
-        // Validar días según el mes
         const daysInMonth = new Date(2000 + numYear, numMonth, 0).getDate();
         if (numDay > daysInMonth) return false;
 
         return true;
     }
-} 
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+}); 
