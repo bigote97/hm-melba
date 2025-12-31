@@ -1,0 +1,1945 @@
+{
+  "petId": "melba",
+  "source": "whatsapp_export",
+  "timezone": "America/Argentina/Buenos_Aires",
+  "events": [
+    {
+      "id": "wa-202404251947-4",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-04-25T19:47:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.7
+      }
+    },
+    {
+      "id": "wa-202404251947-5",
+      "type": "LAB",
+      "occurredAtIso": "2024-04-25T19:47:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "diphylidum"
+      ],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [
+          "diphylidum"
+        ],
+        "raw": "Suponemos diphylidum"
+      }
+    },
+    {
+      "id": "wa-202404252024-7",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-04-25T20:24:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Moxidex Plus",
+        "raw": "Tomó moxidex plus el 23/4",
+        "effectiveDateIso": "2024-04-23T12:00:00-03:00"
+      }
+    },
+    {
+      "id": "wa-202404262021-8",
+      "type": "NOTE",
+      "occurredAtIso": "2024-04-26T20:21:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "adolorida",
+          "dolor",
+          "encorvada"
+        ],
+        "text": "Inyectable porque la notamos muy adolorida del abdomen y encorvada"
+      }
+    },
+    {
+      "id": "wa-202404270935-9",
+      "type": "DOSE",
+      "occurredAtIso": "2024-04-27T09:35:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Dipirona",
+          "Tramadol"
+        ],
+        "raw": "Se le inyectó ayer:\nDipirona tramadol y sereña \nSe le inyectó hoy: \nDipirona tramadol"
+      }
+    },
+    {
+      "id": "wa-202404270938-11",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-04-27T09:38:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Cerenia",
+        "raw": "Cerenia*"
+      }
+    },
+    {
+      "id": "wa-202404271101-12",
+      "type": "NOTE",
+      "occurredAtIso": "2024-04-27T11:01:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "audio",
+            "filename": "PTT-20240427-WA0015.opus"
+          }
+        ],
+        "raw": "‎PTT-20240427-WA0015.opus (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202404272029-16",
+      "type": "DOSE",
+      "occurredAtIso": "2024-04-27T20:29:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Cerenia",
+          "Dipirona",
+          "Tramadol"
+        ],
+        "raw": "Inyectables de hoy turno noche:\n- Dipirona tramadol\n- Cerenia <Se editó este mensaje.>"
+      }
+    },
+    {
+      "id": "wa-202405201732-17",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-05-20T17:32:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Moxidex Plus",
+        "raw": "23/4 moxidex plus\n13/4 simparica",
+        "effectiveDateIso": "2024-04-23T12:00:00-03:00"
+      }
+    },
+    {
+      "id": "wa-202405210933-19",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-05-21T09:33:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Moxidex Plus",
+        "raw": "Le di Moxidex plus 1 comp y 3/4",
+        "effectiveDateIso": "2024-04-03T12:00:00-03:00"
+      }
+    },
+    {
+      "id": "wa-202405211244-20",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-05-21T12:44:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.3
+      }
+    },
+    {
+      "id": "wa-202405211244-21",
+      "type": "NOTE",
+      "occurredAtIso": "2024-05-21T12:44:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20240521-WA0016.jpg"
+          }
+        ],
+        "raw": "‎IMG-20240521-WA0016.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202405211246-22",
+      "type": "NOTE",
+      "occurredAtIso": "2024-05-21T12:46:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20240521-WA0017.jpg"
+          }
+        ],
+        "raw": "‎IMG-20240521-WA0017.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202405220740-24",
+      "type": "FOOD",
+      "occurredAtIso": "2024-05-22T07:40:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "Desayuno"
+          },
+          {
+            "name": "pollo",
+            "grams": 112.0
+          },
+          {
+            "name": "papa",
+            "grams": 125.0
+          },
+          {
+            "name": "zanahoria",
+            "grams": 50.0
+          },
+          {
+            "name": "manzana",
+            "grams": 15.0
+          },
+          {
+            "name": "huevo",
+            "grams": 7.5
+          }
+        ],
+        "raw": "Desayuno:\n pollo 112\nPapa: 125\nZanahoria: 50 \nManzana: 15\nHuevo: 7.5"
+      }
+    },
+    {
+      "id": "wa-202405312112-25",
+      "type": "LAB",
+      "occurredAtIso": "2024-05-31T21:12:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "hemopatogenos"
+      ],
+      "notes": "",
+      "data": {
+        "result": "NEGATIVE",
+        "findings": [
+          "hemopatogenos"
+        ],
+        "raw": "Hemopatogenos: negativo\nCopro fecal: negativo"
+      }
+    },
+    {
+      "id": "wa-202406041318-26",
+      "type": "FOOD",
+      "occurredAtIso": "2024-06-04T13:18:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "name": "papa",
+            "grams": 600.0
+          },
+          {
+            "name": "pollo",
+            "grams": 540.0
+          },
+          {
+            "name": "zanahoria",
+            "grams": 240.0
+          },
+          {
+            "name": "manzana",
+            "grams": 72.0
+          },
+          {
+            "name": "aceite",
+            "grams": 60.0
+          },
+          {
+            "name": "huevo",
+            "grams": 36.0
+          }
+        ],
+        "raw": "Papa 600\nPollo 540\nZanahoria 240\nManzana 72\nAceite 60\nHuevo 36"
+      }
+    },
+    {
+      "id": "wa-202406091018-28",
+      "type": "FOOD",
+      "occurredAtIso": "2024-06-09T10:18:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "Desayuno"
+          },
+          {
+            "name": "pollo",
+            "grams": 135.0
+          },
+          {
+            "name": "papa",
+            "grams": 150.0
+          },
+          {
+            "name": "zanahoria",
+            "grams": 60.0
+          }
+        ],
+        "raw": "Desayuno: \nPollo 135\nPapa 150\nZanahoria 60"
+      }
+    },
+    {
+      "id": "wa-202406180927-29",
+      "type": "FOOD",
+      "occurredAtIso": "2024-06-18T09:27:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "name": "nutrex",
+            "amount": 1.0,
+            "unit": "cucharada"
+          }
+        ],
+        "raw": "Nutrex 1 cucharada por dia en el alimento"
+      }
+    },
+    {
+      "id": "wa-202406180928-30",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-06-18T09:28:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Diasip 250",
+        "raw": "Diasip 250 diluido en agua una vez por día. Solo"
+      }
+    },
+    {
+      "id": "wa-202406180931-32",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-06-18T09:31:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.95
+      }
+    },
+    {
+      "id": "wa-202406201029-33",
+      "type": "FOOD",
+      "occurredAtIso": "2024-06-20T10:29:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "177 fideos"
+          },
+          {
+            "note": "160 pollo"
+          },
+          {
+            "note": "calcio"
+          },
+          {
+            "note": "triglicerido"
+          }
+        ],
+        "raw": "177 fideos\n160 pollo\ncalcio\ntriglicerido"
+      }
+    },
+    {
+      "id": "wa-202406201033-34",
+      "type": "NOTE",
+      "occurredAtIso": "2024-06-20T10:33:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20240620-WA0003.jpg"
+          }
+        ],
+        "raw": "‎IMG-20240620-WA0003.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202407160949-35",
+      "type": "PURCHASE",
+      "occurredAtIso": "2024-07-16T09:49:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "¡Aprovechá!\n\nMercedes compartió un descuento de $ 2.500 válido hasta 7 días, para hacer tu primer pago de mínimo $ 5.000 con la app de Mercado Pago.\n\n*Usá el descuento para:*\n📲 Recargar celular\n💡 Pagar servicios\n🚌 Cargar transporte\n🧾 Pagar con QR\n\nIngresa al link para descargar la app y activar tu beneficio. \n¡Es por tiempo limitado!:\nhttp://mpago.li/159L1wD",
+        "priceArs": 2500.0
+      }
+    },
+    {
+      "id": "wa-202407201032-36",
+      "type": "GROOMING",
+      "occurredAtIso": "2024-07-20T10:32:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Martes 13hs baño melba\n$5500",
+        "priceArs": 5500.0
+      }
+    },
+    {
+      "id": "wa-202408270903-38",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-08-27T09:03:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.35
+      }
+    },
+    {
+      "id": "wa-202409162120-40",
+      "type": "NOTE",
+      "occurredAtIso": "2024-09-16T21:20:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20240916-WA0008.jpg"
+          }
+        ],
+        "raw": "‎IMG-20240916-WA0008.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202409162121-42",
+      "type": "FOOD",
+      "occurredAtIso": "2024-09-16T21:21:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "name": "deja de",
+            "grams": 30.0
+          },
+          {
+            "note": "El huevo duro no le encanta."
+          }
+        ],
+        "raw": "Deja de 30-50 gramos como mínimo. \nEl huevo duro no le encanta."
+      }
+    },
+    {
+      "id": "wa-202409170738-43",
+      "type": "NOTE",
+      "occurredAtIso": "2024-09-17T07:38:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20240917-WA0000.jpg"
+          }
+        ],
+        "raw": "‎IMG-20240917-WA0000.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202409170913-46",
+      "type": "NOTE",
+      "occurredAtIso": "2024-09-17T09:13:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "STK-20240903-WA0007.webp"
+          }
+        ],
+        "raw": "‎STK-20240903-WA0007.webp (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202409170928-47",
+      "type": "VISIT",
+      "occurredAtIso": "2024-09-17T09:28:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Consulta dentro de un mes"
+      }
+    },
+    {
+      "id": "wa-202411041514-51",
+      "type": "NOTE",
+      "occurredAtIso": "2024-11-04T15:14:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "diarrea",
+          "moco",
+          "sangre"
+        ],
+        "text": "Caca diarrea con sangre y moco"
+      }
+    },
+    {
+      "id": "wa-202411051858-52",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-11-05T18:58:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.0
+      }
+    },
+    {
+      "id": "wa-202411051948-53",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-11-05T19:48:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Dipirona",
+        "raw": "Protector hepático y dipirona"
+      }
+    },
+    {
+      "id": "wa-202411081536-54",
+      "type": "NOTE",
+      "occurredAtIso": "2024-11-08T15:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "diarrea"
+        ],
+        "text": "Diarrea con rojo"
+      }
+    },
+    {
+      "id": "wa-202411081536-55",
+      "type": "NOTE",
+      "occurredAtIso": "2024-11-08T15:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "moco"
+        ],
+        "text": "Y moco"
+      }
+    },
+    {
+      "id": "wa-202411081903-56",
+      "type": "DOSE",
+      "occurredAtIso": "2024-11-08T19:03:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Dipirona",
+          "Hepatol"
+        ],
+        "raw": "Mucosas secas\nInyectable \nDipirona \nHepatol"
+      }
+    },
+    {
+      "id": "wa-202411120944-58",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-11-12T09:44:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.75
+      }
+    },
+    {
+      "id": "wa-202411120957-59",
+      "type": "NOTE",
+      "occurredAtIso": "2024-11-12T09:57:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20241112-WA0000.jpg"
+          }
+        ],
+        "raw": "‎IMG-20241112-WA0000.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202411181058-60",
+      "type": "NOTE",
+      "occurredAtIso": "2024-11-18T10:58:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "bilioso",
+          "vomito"
+        ],
+        "text": "Vómito medio bilioso con un pedazo de pollo?"
+      }
+    },
+    {
+      "id": "wa-202412051047-61",
+      "type": "MEDICATION",
+      "occurredAtIso": "2024-12-05T10:47:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Frontline",
+        "raw": "Pipeta frontline plus"
+      }
+    },
+    {
+      "id": "wa-202412051745-62",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-05T17:45:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.95
+      }
+    },
+    {
+      "id": "wa-202412060842-63",
+      "type": "FOOD",
+      "occurredAtIso": "2024-12-06T08:42:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "Heladerita"
+          },
+          {
+            "note": "jeringas"
+          },
+          {
+            "note": "páncreas"
+          },
+          {
+            "note": "caldo"
+          },
+          {
+            "note": "probiotico"
+          },
+          {
+            "note": "hielos de gel"
+          },
+          {
+            "note": "2 enterogermina (2 ampollas, estan en la caja en la biblioteca)"
+          },
+          {
+            "note": "Trae su plato verde"
+          }
+        ],
+        "raw": "Heladerita: \n- jeringas \n- páncreas \n- caldo\n- probiotico \n- hielos de gel\n- 2 enterogermina (2 ampollas, estan en la caja en la biblioteca) \nTrae su plato verde"
+      }
+    },
+    {
+      "id": "wa-202412060851-65",
+      "type": "DOSE",
+      "occurredAtIso": "2024-12-06T08:51:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Tramadol"
+        ],
+        "raw": "1 dipi+tramadol 8a.m."
+      }
+    },
+    {
+      "id": "wa-202412091600-68",
+      "type": "LAB",
+      "occurredAtIso": "2024-12-09T16:00:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "ancylostoma"
+      ],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [
+          "ancylostoma"
+        ],
+        "raw": "Ancylostoma"
+      }
+    },
+    {
+      "id": "wa-202412091823-69",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-09T18:23:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 17.85
+      }
+    },
+    {
+      "id": "wa-202412121853-71",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-12T18:53:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 17.75
+      }
+    },
+    {
+      "id": "wa-202412121903-72",
+      "type": "DOSE",
+      "occurredAtIso": "2024-12-12T19:03:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Ivermectina"
+        ],
+        "raw": "Ivermectina inyectable"
+      }
+    },
+    {
+      "id": "wa-202412192053-73",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-19T20:53:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 17.9
+      }
+    },
+    {
+      "id": "wa-202412201956-74",
+      "type": "NOTE",
+      "occurredAtIso": "2024-12-20T19:56:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "contact",
+            "filename": "Diego Carnicero Pancreas.vcf"
+          }
+        ],
+        "raw": "‎Diego Carnicero Pancreas.vcf (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202412251706-75",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-25T17:06:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.6
+      }
+    },
+    {
+      "id": "wa-202412271123-76",
+      "type": "WEIGHT",
+      "occurredAtIso": "2024-12-27T11:23:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.7
+      }
+    },
+    {
+      "id": "wa-202501031140-78",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-01-03T11:40:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Fentel max 1 pastilla"
+      }
+    },
+    {
+      "id": "wa-202501150953-79",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-01-15T09:53:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Comprar fentel max"
+      }
+    },
+    {
+      "id": "wa-202501150954-81",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-01-15T09:54:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 20.0
+      }
+    },
+    {
+      "id": "wa-202501150956-92",
+      "type": "NOTE",
+      "occurredAtIso": "2025-01-15T09:56:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [],
+        "text": "Porque sino le puede hacer mal y la vomita y cagamos porque hay que comprar otra"
+      }
+    },
+    {
+      "id": "wa-202501151538-94",
+      "type": "NOTE",
+      "occurredAtIso": "2025-01-15T15:38:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "audio",
+            "filename": "PTT-20250115-WA0025.opus"
+          }
+        ],
+        "raw": "‎PTT-20250115-WA0025.opus (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202501151541-95",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-01-15T15:41:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Frontline",
+        "raw": "Heladerita\nHielera rosa\nTuppers verde azul( nestum) rojo rosa\nFrontline (spray)\nKiojin (naranja) \nCalcio\nPlato\nToallon rojo \nCollar \nCorrea celeste cortita\nArnés \n4 hielos. 2 de gel. Y dos duros"
+      }
+    },
+    {
+      "id": "wa-202501211423-107",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-01-21T14:23:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Fentel max. Te tienen que dar 3 pastillas\nSi la ves a gime o a mai de última preguntales"
+      }
+    },
+    {
+      "id": "wa-202501220901-108",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-01-22T09:01:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "21/01 Primera dosis de Fentel Max, por la noche despues de cenar",
+        "effectiveDateIso": "2025-01-21T12:00:00-03:00"
+      }
+    },
+    {
+      "id": "wa-202502121921-109",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-02-12T19:21:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.5
+      }
+    },
+    {
+      "id": "wa-202502121921-110",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-02-12T19:21:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Simparica",
+        "raw": "Simparica"
+      }
+    },
+    {
+      "id": "wa-202502220846-112",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-02-22T08:46:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Fentel max primer pastilla"
+      }
+    },
+    {
+      "id": "wa-202502241959-113",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-02-24T19:59:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.0
+      }
+    },
+    {
+      "id": "wa-202502242004-114",
+      "type": "DOSE",
+      "occurredAtIso": "2025-02-24T20:04:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Cestodan",
+          "Doramectina"
+        ],
+        "raw": "Doramectina y cestodan inyectable"
+      }
+    },
+    {
+      "id": "wa-202503011155-115",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-03-01T11:55:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.9
+      }
+    },
+    {
+      "id": "wa-202503012201-116",
+      "type": "VISIT",
+      "occurredAtIso": "2025-03-01T22:01:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Vacunas hoy"
+      }
+    },
+    {
+      "id": "wa-202503121951-117",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-03-12T19:51:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.1
+      }
+    },
+    {
+      "id": "wa-202503121951-118",
+      "type": "NOTE",
+      "occurredAtIso": "2025-03-12T19:51:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "vomito"
+        ],
+        "text": "Vomito anoche"
+      }
+    },
+    {
+      "id": "wa-202503121955-119",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-03-12T19:55:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Cestodan",
+        "raw": "Cestodan y dora"
+      }
+    },
+    {
+      "id": "wa-202503182205-120",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-03-18T22:05:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Simparica",
+        "raw": "Simparica <Se editó este mensaje.>"
+      }
+    },
+    {
+      "id": "wa-202504011810-121",
+      "type": "NOTE",
+      "occurredAtIso": "2025-04-01T18:10:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "diarrea"
+        ],
+        "text": "Diarrea"
+      }
+    },
+    {
+      "id": "wa-202504041936-122",
+      "type": "LAB",
+      "occurredAtIso": "2025-04-04T19:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "NEGATIVE",
+        "findings": [],
+        "raw": "Copro control negativo"
+      }
+    },
+    {
+      "id": "wa-202504042012-123",
+      "type": "VISIT",
+      "occurredAtIso": "2025-04-04T20:12:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Volver lunes por control"
+      }
+    },
+    {
+      "id": "wa-202504051921-124",
+      "type": "NOTE",
+      "occurredAtIso": "2025-04-05T19:21:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "moco"
+        ],
+        "text": "Caca super blanda. Oscura y clara con moco\nColor oscuro para mi es la pasta de vitamina"
+      }
+    },
+    {
+      "id": "wa-202504061206-125",
+      "type": "NOTE",
+      "occurredAtIso": "2025-04-06T12:06:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20250406-WA0002.jpg"
+          }
+        ],
+        "raw": "‎IMG-20250406-WA0002.jpg (archivo adjunto)\nBlandon"
+      }
+    },
+    {
+      "id": "wa-202504071304-126",
+      "type": "IMAGING",
+      "occurredAtIso": "2025-04-07T13:04:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "summary": "Ecografía abdominal:\nBazo un poco aumentado de tamaño\nMucho gas abdominal no pudo ver el páncreas \nHígado bien\nGanglios bien\nIntestino bien"
+      }
+    },
+    {
+      "id": "wa-202504071918-127",
+      "type": "NOTE",
+      "occurredAtIso": "2025-04-07T19:18:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "IMG-20250407-WA0008.jpg"
+          }
+        ],
+        "raw": "‎IMG-20250407-WA0008.jpg (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202504072006-128",
+      "type": "DOSE",
+      "occurredAtIso": "2025-04-07T20:06:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Dipirona",
+          "Hepatone",
+          "Tramadol"
+        ],
+        "raw": "Dipirona y dexa y tramadol y hepatone inyectable"
+      }
+    },
+    {
+      "id": "wa-202504081116-129",
+      "type": "NOTE",
+      "occurredAtIso": "2025-04-08T11:16:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "pdf",
+            "filename": "mercadopago_comprobante_107727762418.pdf"
+          }
+        ],
+        "raw": "‎mercadopago_comprobante_107727762418.pdf (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202504081835-130",
+      "type": "FOOD",
+      "occurredAtIso": "2025-04-08T18:35:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "name": "pollo",
+            "grams": 600.0
+          },
+          {
+            "name": "zanahoria",
+            "grams": 300.0
+          },
+          {
+            "name": "royal",
+            "grams": 30.0
+          },
+          {
+            "name": "aceite",
+            "grams": 30.0
+          },
+          {
+            "name": "calcio",
+            "grams": 4.0
+          },
+          {
+            "name": "pancreas",
+            "grams": 100.0
+          },
+          {
+            "name": "kyojin",
+            "amount": 15.0,
+            "unit": "gotas"
+          }
+        ],
+        "raw": "Pollo 600\nZanahoria 300\nRoyal 30 \nAceite 30\nCalcio 4 \nPancreas 100\nKyojin 15 gotas"
+      }
+    },
+    {
+      "id": "wa-202504081835-131",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-04-08T18:35:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 18.0
+      }
+    },
+    {
+      "id": "wa-202504211232-132",
+      "type": "IMAGING",
+      "occurredAtIso": "2025-04-21T12:32:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "summary": "Ecografia abdominal normal"
+      }
+    },
+    {
+      "id": "wa-202504291202-133",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-04-29T12:02:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.15
+      }
+    },
+    {
+      "id": "wa-202505021841-134",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-05-02T18:41:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Frontline",
+        "raw": "Frontline"
+      }
+    },
+    {
+      "id": "wa-202505021841-135",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-05-02T18:41:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Power",
+        "raw": "Power"
+      }
+    },
+    {
+      "id": "wa-202505021850-137",
+      "type": "LAB",
+      "occurredAtIso": "2025-05-02T18:50:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [],
+        "raw": "15 de mayo hacer copro"
+      }
+    },
+    {
+      "id": "wa-202505021850-138",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-05-02T18:50:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Desconocido",
+        "raw": "Darle pipeta"
+      }
+    },
+    {
+      "id": "wa-202505031225-140",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-05-03T12:25:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Frontline",
+        "raw": "Frontline pipeta"
+      }
+    },
+    {
+      "id": "wa-202505301032-143",
+      "type": "LAB",
+      "occurredAtIso": "2025-05-30T10:32:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [],
+        "raw": "Copro control"
+      }
+    },
+    {
+      "id": "wa-202506061141-145",
+      "type": "GROOMING",
+      "occurredAtIso": "2025-06-06T11:41:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "5/6 baño en trivet"
+      }
+    },
+    {
+      "id": "wa-202506270814-146",
+      "type": "FOOD",
+      "occurredAtIso": "2025-06-27T08:14:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "Por racion"
+          },
+          {
+            "name": "pollo",
+            "grams": 170.0
+          },
+          {
+            "name": "zanahoria",
+            "grams": 100.0
+          },
+          {
+            "name": "aceite",
+            "amount": 1,
+            "unit": "cucharada"
+          },
+          {
+            "name": "calcio",
+            "amount": 3.0,
+            "unit": "o"
+          },
+          {
+            "name": "vitamina",
+            "amount": 1.0,
+            "unit": "sopera"
+          },
+          {
+            "note": "Alimento"
+          }
+        ],
+        "raw": "Por racion \nPollo 170\nZanahoria 100\nAceite una cucharada\nCalcio 3 o 4 gramos\nVitamina 1 sopera\nAlimento"
+      }
+    },
+    {
+      "id": "wa-202507251902-147",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-07-25T19:02:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.0
+      }
+    },
+    {
+      "id": "wa-202507251926-148",
+      "type": "VISIT",
+      "occurredAtIso": "2025-07-25T19:26:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Llevar el 15 de agosto para desparasitar"
+      }
+    },
+    {
+      "id": "wa-202508141751-149",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-08-14T17:51:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.2
+      }
+    },
+    {
+      "id": "wa-202508211127-150",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-08-21T11:27:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Desconocido",
+        "raw": "Pipeta"
+      }
+    },
+    {
+      "id": "wa-202508241036-151",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-08-24T10:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Día 1 fentel max"
+      }
+    },
+    {
+      "id": "wa-202509151514-160",
+      "type": "NOTE",
+      "occurredAtIso": "2025-09-15T15:14:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "image",
+            "filename": "STK-20250915-WA0011.webp"
+          }
+        ],
+        "raw": "‎STK-20250915-WA0011.webp (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202509151810-162",
+      "type": "LAB",
+      "occurredAtIso": "2025-09-15T18:10:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [],
+        "raw": "Copro control 2 octubre"
+      }
+    },
+    {
+      "id": "wa-202509161106-163",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-09-16T11:06:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.7
+      }
+    },
+    {
+      "id": "wa-202509161114-164",
+      "type": "NOTE",
+      "occurredAtIso": "2025-09-16T11:14:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "attachment"
+      ],
+      "notes": "",
+      "data": {
+        "attachments": [
+          {
+            "type": "contact",
+            "filename": "Naty Pancreas Pr.vcf"
+          }
+        ],
+        "raw": "‎Naty Pancreas Pr.vcf (archivo adjunto)"
+      }
+    },
+    {
+      "id": "wa-202509161139-169",
+      "type": "VISIT",
+      "occurredAtIso": "2025-09-16T11:39:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "raw": "Cardiologo martes 23/9 13hs"
+      }
+    },
+    {
+      "id": "wa-202509161422-171",
+      "type": "NOTE",
+      "occurredAtIso": "2025-09-16T14:22:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "sangre"
+        ],
+        "text": "Hoy le sacamos sangre para los prequirurgicos de la limpieza dental"
+      }
+    },
+    {
+      "id": "wa-202509171819-172",
+      "type": "LAB",
+      "occurredAtIso": "2025-09-17T18:19:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [],
+        "raw": "Hacer otra extracción de sangre para controlar leucocitos en un mes"
+      }
+    },
+    {
+      "id": "wa-202509171822-173",
+      "type": "DOSE",
+      "occurredAtIso": "2025-09-17T18:22:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "medications": [
+          "Pregabalina"
+        ],
+        "raw": "Pregabalina medio comprimido 80mg cada 12hs"
+      }
+    },
+    {
+      "id": "wa-202509172024-176",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-09-17T20:24:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "Empezó hoy con la pregabalina"
+      }
+    },
+    {
+      "id": "wa-202509202141-177",
+      "type": "NOTE",
+      "occurredAtIso": "2025-09-20T21:41:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "symptoms": [
+          "diarrea"
+        ],
+        "text": "Diarrea"
+      }
+    },
+    {
+      "id": "wa-202509211344-178",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-09-21T13:44:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "Plato agua y comida\nBotella\nColchoneta \nToallones \nPregabalina \nVitamina\nCalcio\nProbiotico\nAceite\nPollo\nAlimento\nJuguete \nSachet\nFipronil \nCinto del auto\nCorrea larga\nBolsitas"
+      }
+    },
+    {
+      "id": "wa-202509211756-179",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-09-21T17:56:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Fentel max 17/09",
+        "effectiveDateIso": "2025-09-17T12:00:00-03:00"
+      }
+    },
+    {
+      "id": "wa-202509231156-180",
+      "type": "FOOD",
+      "occurredAtIso": "2025-09-23T11:56:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "name": "lata",
+            "grams": 380.0
+          },
+          {
+            "note": "O sino"
+          }
+        ],
+        "raw": "Lata 380gr gastrointestinal marca sieger húmedo. \nO sino"
+      }
+    },
+    {
+      "id": "wa-202509231159-181",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-09-23T11:59:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.8
+      }
+    },
+    {
+      "id": "wa-202509231217-184",
+      "type": "FOOD",
+      "occurredAtIso": "2025-09-23T12:17:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "kind": "UNKNOWN",
+        "ingredients": [
+          {
+            "note": "1 lata por dia y 250/260alimento"
+          }
+        ],
+        "raw": "1 lata por dia y 250/260alimento"
+      }
+    },
+    {
+      "id": "wa-202509231509-186",
+      "type": "IMAGING",
+      "occurredAtIso": "2025-09-23T15:09:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "summary": "Control ecocardio y electrocardiograma prequirurgico dio todo bien"
+      }
+    },
+    {
+      "id": "wa-202509240804-188",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-09-24T08:04:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Desconocido",
+        "raw": "Pipeta puesta"
+      }
+    },
+    {
+      "id": "wa-202509261450-189",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-09-26T14:50:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "Sachet \nAlimento\nLatas\nColchoneta\nCinturón\nToallones\nFipronil\nPregabalina\nAceite cannabis\nBolsitas\nProbiotico\nPáncreas\nPlato de agua y comida\nBotella\nCollar\nCorrea larga\nPretal\nCuaderno <Se editó este mensaje.>"
+      }
+    },
+    {
+      "id": "wa-202510091831-194",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-10-09T18:31:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "Seguir con pregabalina y cannabis"
+      }
+    },
+    {
+      "id": "wa-202510281836-197",
+      "type": "LAB",
+      "occurredAtIso": "2025-10-28T18:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [],
+        "raw": "Hacer copro fines de noviembre"
+      }
+    },
+    {
+      "id": "wa-202510281836-198",
+      "type": "WEIGHT",
+      "occurredAtIso": "2025-10-28T18:36:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "weightKg": 19.25
+      }
+    },
+    {
+      "id": "wa-202511212244-199",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-11-21T22:44:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Dipirona",
+        "raw": "Hoy se lastimo dos patas corriendo una liebre. Le dio meloxicam, dipirona y amoxi"
+      }
+    },
+    {
+      "id": "wa-202511251943-201",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-11-25T19:43:00-03:00",
+      "createdBy": "Augusto Rossetti Lorea",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "@⁨Meta AI⁩ decime cuál fue la última pregabalina que le dimos a melba"
+      }
+    },
+    {
+      "id": "wa-202512151851-204",
+      "type": "LAB",
+      "occurredAtIso": "2025-12-15T18:51:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [
+        "ancylostoma"
+      ],
+      "notes": "",
+      "data": {
+        "result": "UNKNOWN",
+        "findings": [
+          "ancylostoma"
+        ],
+        "raw": "Copro con ancylostoma"
+      }
+    },
+    {
+      "id": "wa-202512151904-205",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-12-15T19:04:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Fentel Max",
+        "raw": "Fentel max hoy \nY repetir en 15 dias"
+      }
+    },
+    {
+      "id": "wa-202512151904-206",
+      "type": "MEDICATION",
+      "occurredAtIso": "2025-12-15T19:04:00-03:00",
+      "createdBy": "Mer",
+      "source": "whatsapp",
+      "tags": [],
+      "notes": "",
+      "data": {
+        "name": "Pregabalina",
+        "raw": "Pregabalina máximo le podemos dar 100mg",
+        "amountMg": 100
+      }
+    }
+  ]
+}

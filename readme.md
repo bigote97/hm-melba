@@ -2,6 +2,33 @@
 
 Este proyecto es una aplicación web diseñada para visualizar y gestionar el historial médico de Melba, una perra, de manera organizada y accesible.
 
+## 🆕 Modelo Basado en Eventos
+
+El proyecto ha sido refactorizado a un **modelo basado en eventos tipados** para mayor escalabilidad y consistencia.
+
+### Documentación
+
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)**: Arquitectura y estructura del nuevo modelo
+- **[MIGRATION-GUIDE.md](./MIGRATION-GUIDE.md)**: Guía paso a paso para migrar datos antiguos
+
+### Características del Nuevo Modelo
+
+- ✅ **Eventos tipados**: WEIGHT, MEDICATION, VISIT, LAB, IMAGING, FOOD, GROOMING, PURCHASE, NOTE
+- ✅ **Timeline consistente**: Todos los eventos ordenados por `occurredAt` (Timestamp)
+- ✅ **Estado derivado**: Peso actual y medicaciones activas calculados desde eventos
+- ✅ **Escalable**: Fácil agregar nuevos tipos de eventos
+- ✅ **Sin ambigüedades**: Peso siempre en kg, precios siempre en ARS
+
+### Migración
+
+Si tienes datos antiguos, ejecuta la migración:
+
+1. Abre `migrate.html` en tu navegador
+2. Haz clic en "Iniciar Migración"
+3. Verifica los resultados en Firebase Console
+
+Ver [MIGRATION-GUIDE.md](./MIGRATION-GUIDE.md) para más detalles.
+
 ## Características
 
 - **Visualización cronológica**: Muestra las consultas médicas, tratamientos, vacunas y registros de peso de Melba en orden cronológico.
@@ -42,11 +69,67 @@ Los registros médicos se almacenan en formato JSON con la siguiente estructura:
    cd hm-melba
    ```
 
-2. **Configuración del servidor local**:
-   Puedes usar live server o cualquier herramienta que genere un servidor local para visualizar el proyecto.
+2. **Configurar variables de entorno**:
+   
+   Este proyecto utiliza Firebase para almacenar los datos. Necesitas configurar las credenciales de Firebase:
+   
+   a. Obtén tus credenciales de Firebase:
+      - Ve a [Firebase Console](https://console.firebase.google.com/)
+      - Selecciona tu proyecto (o crea uno nuevo)
+      - Ve a Configuración del proyecto (⚙️) > Tus aplicaciones
+      - Si no tienes una app web, haz clic en "Agregar app" y selecciona la plataforma web
+      - Copia los valores de configuración
+   
+   b. Configura las variables de entorno (dos opciones):
+      
+      **Opción 1: Usando archivo .env (Recomendado)**
+      ```bash
+      # Copia el archivo de ejemplo
+      cp .env.example .env
+      
+      # Edita .env con tus credenciales reales
+      # Luego genera env.js automáticamente:
+      node build-env.js
+      
+      # O en Windows:
+      build-env.bat
+      ```
+      
+      **Opción 2: Editar directamente env.js**
+      ```bash
+      # Copia el archivo de ejemplo
+      cp env.example.js env.js
+      
+      # Edita env.js y completa con tus valores reales
+      ```
+   
+   ⚠️ **Importante**: Los archivos `.env` y `env.js` están en `.gitignore` y no se subirán al repositorio. Nunca compartas tus credenciales de Firebase.
 
-3. **Acceder a la aplicación**:
+3. **Configuración del servidor local**:
+   
+   Como esta aplicación usa módulos ES6, necesitas un servidor local. Puedes usar cualquiera de estas opciones:
+   
+   **Opción 1: Python (si está instalado)**
+   ```bash
+   # Python 3
+   python -m http.server 8000
+   
+   # Python 2
+   python -m SimpleHTTPServer 8000
+   ```
+   
+   **Opción 2: Node.js con http-server**
+   ```bash
+   npx http-server -p 8000
+   ```
+   
+   **Opción 3: Live Server (extensión de VS Code)**
+   - Instala la extensión "Live Server" en VS Code
+   - Haz clic derecho en `index.html` y selecciona "Open with Live Server"
+
+4. **Acceder a la aplicación**:
    - Abre tu navegador y visita `http://localhost:8000`
+   - La aplicación se conectará a Firebase y cargará los registros médicos
    - Utiliza los filtros para buscar registros específicos
    - Visualiza el historial médico completo
 

@@ -1,13 +1,348 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Migrar Datos a Firebase</title>
-    <script type="module" src="./firebase-config.js"></script>
-    <script type="module" src="./firebase-service.js"></script>
-    <script type="module" src="./migrate-data.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migración a Modelo de Eventos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            white-space: pre-wrap;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning-text { color: #ffc107; }
+    </style>
 </head>
 <body>
-    <h1>Migración de Datos</h1>
-    <p>Por favor, revisa la consola del navegador para ver el progreso.</p>
+    <div class="container">
+        <h1>🔄 Migración a Modelo de Eventos</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Advertencia:</strong> Esta migración convertirá tus datos antiguos al nuevo modelo basado en eventos.
+            Los datos originales NO se eliminarán, pero se recomienda hacer un backup antes de continuar.
+        </div>
+        
+        <div class="info">
+            <strong>ℹ️ Información:</strong> El script es idempotente, puedes ejecutarlo múltiples veces sin duplicar datos.
+            Usa el campo <code>legacyId</code> para evitar duplicados.
+        </div>
+        
+        <div>
+            <button id="migrateBtn" onclick="startMigration()">Iniciar Migración</button>
+            <button id="checkBtn" onclick="checkStatus()">Verificar Estado</button>
+        </div>
+        
+        <div id="log" class="log" style="display: none;"></div>
+    </div>
+    
+    <!-- Cargar variables de entorno ANTES del módulo -->
+    <script src="env.js"></script>
+    <script type="module">
+        import { FirebaseService } from './firebase-service.js';
+        import { EventsService } from './eventsService.js';
+        import { EventFactory, EVENT_TYPES, EVENT_SOURCES } from './eventTypes.js';
+        import { parseDateString, now } from './dateUtils.js';
+        import { normalizeWeight, normalizeMedicationName, parseMedicationDose, parseMedicationFrequency } from './dataNormalizers.js';
+        import { Timestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        
+        const PET_ID = 'melba';
+        let logElement = null;
+        
+        function log(message, type = 'info') {
+            if (!logElement) {
+                logElement = document.getElementById('log');
+                logElement.style.display = 'block';
+            }
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = message;
+            logElement.appendChild(entry);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(message);
+        }
+        
+        async function migrateRecords() {
+            log('📦 Iniciando migración de registros...');
+            
+            try {
+                const oldRecords = await FirebaseService.getAllRecords();
+                log(`   Encontrados ${oldRecords.length} registros antiguos`);
+                
+                let created = 0;
+                let skipped = 0;
+                
+                for (const record of oldRecords) {
+                    const existing = await EventsService.findEventByLegacyId(PET_ID, record.id);
+                    if (existing) {
+                        log(`   ⏭️  Registro ${record.id} ya migrado, saltando...`, 'warning-text');
+                        skipped++;
+                        continue;
+                    }
+                    
+                    const occurredAt = parseDateString(record.date) || now();
+                    const events = [];
+                    
+                    if (record.peso) {
+                        const weightKg = normalizeWeight(record.peso);
+                        if (weightKg) {
+                            events.push(EventFactory.createWeightEvent(weightKg, occurredAt, {
+                                source: EVENT_SOURCES.MANUAL,
+                                tags: record.keywords || [],
+                                notes: `Migrado desde registro ${record.id}`,
+                                legacyId: record.id
+                            }));
+                        }
+                    }
+                    
+                    if (record.consulta) {
+                        if (record.medico) {
+                            events.push(EventFactory.createVisitEvent(occurredAt, {
+                                veterinarian: record.medico,
+                                notes: record.consulta,
+                                source: EVENT_SOURCES.MANUAL,
+                                tags: record.keywords || [],
+                                legacyId: record.id
+                            }));
+                        } else {
+                            events.push(EventFactory.createNoteEvent(occurredAt, {
+                                text: record.consulta,
+                                source: EVENT_SOURCES.MANUAL,
+                                tags: record.keywords || [],
+                                legacyId: record.id
+                            }));
+                        }
+                    }
+                    
+                    if (record.vacuna) {
+                        if (!record.medico && !record.consulta) {
+                            events.push(EventFactory.createVisitEvent(occurredAt, {
+                                notes: `Vacuna: ${record.vacuna}`,
+                                source: EVENT_SOURCES.MANUAL,
+                                tags: [...(record.keywords || []), 'vacuna'],
+                                legacyId: record.id
+                            }));
+                        } else if (events.length > 0) {
+                            events[events.length - 1].tags.push('vacuna');
+                            events[events.length - 1].notes += ` | Vacuna: ${record.vacuna}`;
+                        }
+                    }
+                    
+                    if (events.length === 0 && record.keywords && record.keywords.length > 0) {
+                        events.push(EventFactory.createNoteEvent(occurredAt, {
+                            text: `Registro del ${record.date}`,
+                            source: EVENT_SOURCES.MANUAL,
+                            tags: record.keywords,
+                            legacyId: record.id
+                        }));
+                    }
+                    
+                    if (events.length > 0) {
+                        await EventsService.addEventsBatch(PET_ID, events);
+                        log(`   ✅ Registro ${record.id} migrado → ${events.length} evento(s)`, 'success');
+                        created += events.length;
+                    } else {
+                        log(`   ⚠️  Registro ${record.id} sin datos migrables`, 'warning-text');
+                        skipped++;
+                    }
+                }
+                
+                log(`\n✅ Migración de registros completada:`, 'success');
+                log(`   - Eventos creados: ${created}`, 'success');
+                log(`   - Registros saltados: ${skipped}`, 'warning-text');
+                
+                return { created, skipped };
+            } catch (error) {
+                log(`❌ Error en migración de registros: ${error.message}`, 'error');
+                throw error;
+            }
+        }
+        
+        async function migrateMedications() {
+            log('\n💊 Iniciando migración de medicamentos...');
+            
+            try {
+                const currentData = await FirebaseService.getCurrentData();
+                
+                if (!currentData || !currentData.medicamentos || currentData.medicamentos.length === 0) {
+                    log('   ℹ️  No hay medicamentos en current-data para migrar');
+                    return { created: 0, skipped: 0 };
+                }
+                
+                log(`   Encontrados ${currentData.medicamentos.length} medicamentos`);
+                
+                let created = 0;
+                let skipped = 0;
+                
+                for (const med of currentData.medicamentos) {
+                    const legacyId = `medication-${med.nombre}-${med.fechaInicio || 'unknown'}`;
+                    const existing = await EventsService.findEventByLegacyId(PET_ID, legacyId);
+                    if (existing) {
+                        log(`   ⏭️  Medicamento ${med.nombre} ya migrado, saltando...`, 'warning-text');
+                        skipped++;
+                        continue;
+                    }
+                    
+                    const startAt = med.fechaInicio 
+                        ? parseDateString(med.fechaInicio) 
+                        : (currentData.date ? parseDateString(currentData.date) : now());
+                    
+                    const endAt = med.fechaFin 
+                        ? parseDateString(med.fechaFin) 
+                        : null;
+                    
+                    const dose = parseMedicationDose(med.dosis || med.instrucciones || '');
+                    const frequencyHours = parseMedicationFrequency(med.instrucciones || '');
+                    if (frequencyHours) {
+                        dose.frequencyHours = frequencyHours;
+                    }
+                    
+                    const medicationEvent = EventFactory.createMedicationEvent(
+                        normalizeMedicationName(med.nombre),
+                        startAt,
+                        endAt,
+                        {
+                            dose: Object.keys(dose).length > 0 ? dose : undefined,
+                            instructions: med.instrucciones,
+                            source: EVENT_SOURCES.MANUAL,
+                            tags: ['medicación'],
+                            notes: `Migrado desde current-data`,
+                            legacyId
+                        }
+                    );
+                    
+                    await EventsService.addEvent(PET_ID, medicationEvent);
+                    log(`   ✅ Medicamento ${med.nombre} migrado`, 'success');
+                    created++;
+                }
+                
+                log(`\n✅ Migración de medicamentos completada:`, 'success');
+                log(`   - Medicamentos migrados: ${created}`, 'success');
+                log(`   - Medicamentos saltados: ${skipped}`, 'warning-text');
+                
+                return { created, skipped };
+            } catch (error) {
+                log(`❌ Error en migración de medicamentos: ${error.message}`, 'error');
+                throw error;
+            }
+        }
+        
+        window.startMigration = async function() {
+            const btn = document.getElementById('migrateBtn');
+            btn.disabled = true;
+            btn.textContent = 'Migrando...';
+            
+            log('🚀 Iniciando migración completa a modelo de eventos...\n');
+            
+            try {
+                await FirebaseService.initialize();
+                EventsService.initialize();
+                log('✅ Servicios inicializados\n');
+                
+                const recordsResult = await migrateRecords();
+                const medsResult = await migrateMedications();
+                
+                log('\n🎉 ¡Migración completada exitosamente!', 'success');
+                log('\n📝 Próximos pasos:');
+                log('   1. Verifica los eventos en Firebase Console');
+                log('   2. Actualiza la UI para usar EventsService');
+                log('   3. Una vez verificado, puedes eliminar los datos antiguos');
+                
+            } catch (error) {
+                log(`\n❌ Error fatal en migración: ${error.message}`, 'error');
+                console.error(error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Iniciar Migración';
+            }
+        };
+        
+        window.checkStatus = async function() {
+            log('🔍 Verificando estado de la migración...');
+            
+            try {
+                await FirebaseService.initialize();
+                EventsService.initialize();
+                
+                const oldRecords = await FirebaseService.getAllRecords();
+                const events = await EventsService.listEvents(PET_ID);
+                
+                log(`\n📊 Estado actual:`);
+                log(`   - Registros antiguos: ${oldRecords.length}`);
+                log(`   - Eventos nuevos: ${events.length}`);
+                
+                if (events.length > 0) {
+                    log(`\n✅ El modelo de eventos está activo`, 'success');
+                    log(`   Puedes actualizar la UI para usar el nuevo modelo.`);
+                } else {
+                    log(`\n⚠️  No hay eventos aún. Ejecuta la migración.`, 'warning-text');
+                }
+                
+            } catch (error) {
+                log(`❌ Error al verificar estado: ${error.message}`, 'error');
+            }
+        };
+    </script>
 </body>
-</html> 
+</html>

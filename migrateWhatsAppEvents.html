@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migración de Eventos de WhatsApp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            white-space: pre-wrap;
+        }
+        .success { color: #28a745; font-weight: 600; }
+        .error { color: #dc3545; font-weight: 600; }
+        .warning-text { color: #ffc107; }
+        .info-text { color: #17a2b8; }
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Migración de Eventos de WhatsApp</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Advertencia:</strong> Este script reemplazará los eventos existentes en Firebase con los datos de WhatsApp.
+            Asegúrate de tener un backup antes de continuar.
+        </div>
+        
+        <div class="info">
+            <strong>ℹ️ Información:</strong> 
+            <ul style="margin: 10px 0; padding-left: 20px;">
+                <li>Se cargarán eventos desde <code>melba_whatsapp_events.json</code></li>
+                <li>Las fechas ISO se convertirán a Timestamps de Firestore</li>
+                <li>Los campos undefined se eliminarán automáticamente</li>
+                <li>Puedes elegir entre reemplazar todos o solo agregar nuevos</li>
+            </ul>
+        </div>
+        
+        <div>
+            <button id="loadBtn" onclick="loadAndPreview()">📋 Cargar y Previsualizar</button>
+            <button id="migrateBtn" onclick="startMigration()" disabled>🚀 Iniciar Migración</button>
+            <button id="clearBtn" onclick="clearAllEvents()" style="background: #dc3545;">🗑️ Limpiar Todos los Eventos</button>
+        </div>
+        
+        <div id="preview" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <h3>Vista Previa:</h3>
+            <div id="previewContent"></div>
+        </div>
+        
+        <div id="progressContainer" style="display: none;">
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill" style="width: 0%;">0%</div>
+            </div>
+        </div>
+        
+        <div id="log" class="log" style="display: none;"></div>
+    </div>
+    
+    <script src="env.js"></script>
+    <script type="module">
+        import { FirebaseService } from './firebase-service.js';
+        import { EventsService } from './eventsService.js';
+        import { Timestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        
+        const PET_ID = 'melba';
+        let logElement = null;
+        let eventsData = null;
+        let replaceMode = false;
+        
+        function log(message, type = 'info') {
+            if (!logElement) {
+                logElement = document.getElementById('log');
+                logElement.style.display = 'block';
+            }
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = message;
+            logElement.appendChild(entry);
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(message);
+        }
+        
+        function updateProgress(current, total) {
+            const container = document.getElementById('progressContainer');
+            const fill = document.getElementById('progressFill');
+            
+            if (!container || !fill) return;
+            
+            container.style.display = 'block';
+            const percentage = Math.round((current / total) * 100);
+            fill.style.width = `${percentage}%`;
+            fill.textContent = `${percentage}% (${current}/${total})`;
+        }
+        
+        /**
+         * Convierte una fecha ISO a Timestamp de Firestore
+         */
+        function isoToTimestamp(isoString) {
+            if (!isoString) return Timestamp.now();
+            try {
+                const date = new Date(isoString);
+                if (isNaN(date.getTime())) {
+                    log(`⚠️  Fecha inválida: ${isoString}, usando fecha actual`, 'warning-text');
+                    return Timestamp.now();
+                }
+                return Timestamp.fromDate(date);
+            } catch (error) {
+                log(`⚠️  Error al parsear fecha ${isoString}: ${error.message}`, 'warning-text');
+                return Timestamp.now();
+            }
+        }
+        
+        /**
+         * Limpia campos undefined de un objeto
+         */
+        function removeUndefinedFields(obj) {
+            if (obj === null || obj === undefined) {
+                return obj;
+            }
+            
+            if (Array.isArray(obj)) {
+                return obj.map(item => removeUndefinedFields(item));
+            }
+            
+            if (typeof obj !== 'object') {
+                return obj;
+            }
+            
+            const cleaned = {};
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    const value = obj[key];
+                    if (value !== undefined) {
+                        cleaned[key] = removeUndefinedFields(value);
+                    }
+                }
+            }
+            return cleaned;
+        }
+        
+        /**
+         * Convierte un evento del formato WhatsApp al formato Firestore
+         */
+        function convertWhatsAppEvent(waEvent) {
+            const event = {
+                type: waEvent.type,
+                occurredAt: isoToTimestamp(waEvent.occurredAtIso),
+                createdAt: isoToTimestamp(waEvent.occurredAtIso), // Usar la misma fecha si no hay createdAt
+                createdBy: waEvent.createdBy || 'whatsapp',
+                source: waEvent.source || 'whatsapp',
+                tags: waEvent.tags || [],
+                notes: waEvent.notes || '',
+                attachments: waEvent.data?.attachments || [],
+                data: {}
+            };
+            
+            // Copiar datos específicos según el tipo
+            if (waEvent.data) {
+                // Para todos los tipos, copiar los datos relevantes
+                const dataKeys = Object.keys(waEvent.data);
+                dataKeys.forEach(key => {
+                    if (key !== 'attachments' && key !== 'raw' && key !== 'effectiveDateIso') {
+                        event.data[key] = waEvent.data[key];
+                    }
+                });
+                
+                // Si hay effectiveDateIso, convertirla
+                if (waEvent.data.effectiveDateIso) {
+                    if (event.type === 'MEDICATION') {
+                        event.data.startAt = isoToTimestamp(waEvent.data.effectiveDateIso);
+                    }
+                }
+            }
+            
+            // Agregar legacyId para evitar duplicados
+            if (waEvent.id) {
+                event.legacyId = waEvent.id;
+            }
+            
+            // Limpiar campos undefined
+            return removeUndefinedFields(event);
+        }
+        
+        window.loadAndPreview = async function() {
+            log('📋 Cargando archivo de eventos de WhatsApp...');
+            
+            try {
+                const response = await fetch('./melba_whatsapp_events.json');
+                if (!response.ok) {
+                    throw new Error(`Error al cargar el archivo: ${response.statusText}`);
+                }
+                
+                const jsonData = await response.json();
+                eventsData = jsonData.events || [];
+                
+                log(`✅ Archivo cargado: ${eventsData.length} eventos encontrados`, 'success');
+                
+                // Mostrar preview
+                const preview = document.getElementById('preview');
+                const previewContent = document.getElementById('previewContent');
+                
+                if (preview && previewContent) {
+                    preview.style.display = 'block';
+                    
+                    // Agrupar por tipo
+                    const byType = {};
+                    eventsData.forEach(e => {
+                        byType[e.type] = (byType[e.type] || 0) + 1;
+                    });
+                    
+                    let html = `<p><strong>Total de eventos:</strong> ${eventsData.length}</p>`;
+                    html += '<p><strong>Por tipo:</strong></p><ul>';
+                    Object.keys(byType).sort().forEach(type => {
+                        html += `<li>${type}: ${byType[type]}</li>`;
+                    });
+                    html += '</ul>';
+                    
+                    // Mostrar algunos ejemplos
+                    html += '<p><strong>Primeros 3 eventos:</strong></p><pre style="background: white; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 11px;">';
+                    eventsData.slice(0, 3).forEach((e, i) => {
+                        html += `${i + 1}. ${e.type} - ${e.occurredAtIso} - ${e.data?.name || e.data?.weightKg || e.data?.text?.substring(0, 30) || 'N/A'}\n`;
+                    });
+                    html += '</pre>';
+                    
+                    previewContent.innerHTML = html;
+                }
+                
+                // Habilitar botón de migración
+                const migrateBtn = document.getElementById('migrateBtn');
+                if (migrateBtn) {
+                    migrateBtn.disabled = false;
+                }
+                
+            } catch (error) {
+                log(`❌ Error al cargar el archivo: ${error.message}`, 'error');
+                console.error(error);
+            }
+        };
+        
+        window.startMigration = async function() {
+            if (!eventsData || eventsData.length === 0) {
+                log('❌ No hay eventos cargados. Primero carga el archivo.', 'error');
+                return;
+            }
+            
+            const migrateBtn = document.getElementById('migrateBtn');
+            if (migrateBtn) {
+                migrateBtn.disabled = true;
+                migrateBtn.textContent = 'Migrando...';
+            }
+            
+            log('\n🚀 Iniciando migración de eventos de WhatsApp...\n');
+            
+            try {
+                await FirebaseService.initialize();
+                EventsService.initialize();
+                log('✅ Servicios inicializados\n');
+                
+                // Preguntar si quiere reemplazar o solo agregar nuevos
+                if (!replaceMode) {
+                    const replace = confirm(
+                        '¿Deseas REEMPLAZAR todos los eventos existentes?\n\n' +
+                        'OK = Reemplazar todos\n' +
+                        'Cancelar = Solo agregar eventos nuevos (no duplicados)'
+                    );
+                    replaceMode = replace;
+                }
+                
+                if (replaceMode) {
+                    log('🗑️  Modo: REEMPLAZAR todos los eventos', 'warning-text');
+                    log('   Eliminando eventos existentes...');
+                    
+                    // Obtener todos los eventos existentes
+                    const existingEvents = await EventsService.listEvents(PET_ID);
+                    log(`   Encontrados ${existingEvents.length} eventos existentes`);
+                    
+                    // Eliminar en batches de 500 (límite de Firestore)
+                    const batchSize = 500;
+                    for (let i = 0; i < existingEvents.length; i += batchSize) {
+                        const batch = existingEvents.slice(i, i + batchSize);
+                        await Promise.all(
+                            batch.map(e => EventsService.deleteEvent(PET_ID, e.id))
+                        );
+                        log(`   Eliminados ${Math.min(i + batchSize, existingEvents.length)}/${existingEvents.length} eventos`);
+                    }
+                    
+                    log('✅ Eventos existentes eliminados\n', 'success');
+                } else {
+                    log('➕ Modo: Solo agregar eventos nuevos (evitar duplicados)', 'info-text');
+                }
+                
+                // Convertir y migrar eventos
+                let created = 0;
+                let skipped = 0;
+                let errors = 0;
+                
+                log(`\n📦 Procesando ${eventsData.length} eventos...\n`);
+                
+                for (let i = 0; i < eventsData.length; i++) {
+                    const waEvent = eventsData[i];
+                    
+                    try {
+                        // Si no es modo reemplazo, verificar si ya existe
+                        if (!replaceMode && waEvent.id) {
+                            const existing = await EventsService.findEventByLegacyId(PET_ID, waEvent.id);
+                            if (existing) {
+                                log(`   ⏭️  [${i + 1}/${eventsData.length}] Evento ${waEvent.id} ya existe, saltando...`, 'warning-text');
+                                skipped++;
+                                updateProgress(i + 1, eventsData.length);
+                                continue;
+                            }
+                        }
+                        
+                        // Convertir evento
+                        const firestoreEvent = convertWhatsAppEvent(waEvent);
+                        
+                        // Guardar evento
+                        await EventsService.addEvent(PET_ID, firestoreEvent);
+                        
+                        created++;
+                        if ((i + 1) % 10 === 0 || i === eventsData.length - 1) {
+                            log(`   ✅ [${i + 1}/${eventsData.length}] ${waEvent.type} - ${waEvent.occurredAtIso?.substring(0, 10)}`, 'success');
+                        }
+                        
+                        updateProgress(i + 1, eventsData.length);
+                        
+                    } catch (error) {
+                        errors++;
+                        log(`   ❌ [${i + 1}/${eventsData.length}] Error en evento ${waEvent.id}: ${error.message}`, 'error');
+                        console.error(`Error en evento ${waEvent.id}:`, error);
+                    }
+                }
+                
+                log('\n🎉 ¡Migración completada!', 'success');
+                log(`\n📊 Resumen:`, 'info-text');
+                log(`   ✅ Eventos creados: ${created}`, 'success');
+                log(`   ⏭️  Eventos saltados: ${skipped}`, 'warning-text');
+                log(`   ❌ Errores: ${errors}`, errors > 0 ? 'error' : 'info-text');
+                
+                log('\n📝 Próximos pasos:');
+                log('   1. Verifica los eventos en Firebase Console');
+                log('   2. Actualiza la UI para usar el nuevo modelo');
+                
+            } catch (error) {
+                log(`\n❌ Error fatal en migración: ${error.message}`, 'error');
+                console.error(error);
+            } finally {
+                if (migrateBtn) {
+                    migrateBtn.disabled = false;
+                    migrateBtn.textContent = '🚀 Iniciar Migración';
+                }
+            }
+        };
+        
+        window.clearAllEvents = async function() {
+            if (!confirm('⚠️ ¿Estás SEGURO que deseas eliminar TODOS los eventos?\n\nEsta acción NO se puede deshacer.')) {
+                return;
+            }
+            
+            const clearBtn = document.getElementById('clearBtn');
+            if (clearBtn) {
+                clearBtn.disabled = true;
+                clearBtn.textContent = 'Eliminando...';
+            }
+            
+            log('🗑️  Eliminando todos los eventos...');
+            
+            try {
+                await FirebaseService.initialize();
+                EventsService.initialize();
+                
+                const allEvents = await EventsService.listEvents(PET_ID);
+                log(`   Encontrados ${allEvents.length} eventos para eliminar`);
+                
+                if (allEvents.length === 0) {
+                    log('   ℹ️  No hay eventos para eliminar', 'info-text');
+                    return;
+                }
+                
+                // Eliminar en batches
+                const batchSize = 500;
+                let deleted = 0;
+                
+                for (let i = 0; i < allEvents.length; i += batchSize) {
+                    const batch = allEvents.slice(i, i + batchSize);
+                    await Promise.all(
+                        batch.map(e => EventsService.deleteEvent(PET_ID, e.id))
+                    );
+                    deleted += batch.length;
+                    log(`   Eliminados ${deleted}/${allEvents.length} eventos`);
+                }
+                
+                log(`\n✅ Todos los eventos han sido eliminados (${deleted} total)`, 'success');
+                
+            } catch (error) {
+                log(`❌ Error al eliminar eventos: ${error.message}`, 'error');
+                console.error(error);
+            } finally {
+                if (clearBtn) {
+                    clearBtn.disabled = false;
+                    clearBtn.textContent = '🗑️ Limpiar Todos los Eventos';
+                }
+            }
+        };
+    </script>
+</body>
+</html>
